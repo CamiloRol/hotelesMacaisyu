@@ -8,7 +8,6 @@ class User:
         self._password = password
         self._status = status
 
-
     @property
     def get_id(self):
         return self._id
@@ -57,4 +56,5 @@ class User:
     def set_status(self, status):
         self._status = status
 
-    
+    def __str__(self):
+        return f"User: {self._name} {self._last_name}, Email: {self._email}, Status: {self._status}"
