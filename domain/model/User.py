@@ -56,3 +56,5 @@ class User:
     @get_status.setter
     def set_status(self, status):
         self._status = status
+
+    
