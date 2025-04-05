@@ -1,9 +1,10 @@
 class User:
 
-    def __init__(self, id, name, last_name, email, password, status):
+    def __init__(self, id, name, last_name, phone, email, password, status):
         self._id = id
         self._name = name
         self._last_name = last_name
+        self._phone = phone
         self._email = email
         self._password = password
         self._status = status
@@ -31,6 +32,14 @@ class User:
     @get_last_name.setter
     def set_last_name(self, last_name):
         self._last_name = last_name
+
+    @property
+    def get_phone(self):
+        return self._phone
+
+    @get_phone.setter
+    def set_email(self, phone):
+        self._phone = phone
 
     @property
     def get_email(self):
