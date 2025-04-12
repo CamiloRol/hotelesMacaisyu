@@ -3,10 +3,10 @@ from domain.model.Guest import Guest
 class GuestService:
 
     def __init__(self):
-        self.guest = Guest()
+        self.guest = Guest
         self.register_data = []
 
-    def createGuest(self, guest):
+    def create_guest(self, guest):
         guest.get_id = self.register_data[0]
         guest.get_name = self.register_data[1]
         guest.get_last_name = self.register_data[2]
