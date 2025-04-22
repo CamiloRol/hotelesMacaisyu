@@ -1,9 +1,22 @@
-from domain.service.RoomService import RoomService
+from domain.model.Room import Room
+from repository.persistence.RoomRepository import RoomRepository
 
 
 class RoomInput:
     def __init__(self):
-        self.room_service = RoomService()
+        self.room = Room(room_number=None, room_type=None)
+        self.room_repository = RoomRepository()
+
+    def register(self, room, db):
+
+        room_number = int(input("Ingrese el número de habitación:"))
+        self.room.get_room_number(room_number)
+        room_type = input("Ingrese el tipo de habitación")
+        self.room.get_type
+
+        self.room_repository.create_room_repository( None, room, db)
+
+
 
 
     # Metodo para crear habitacion

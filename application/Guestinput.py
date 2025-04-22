@@ -5,7 +5,7 @@ from repository.persistence.GuestRepository import GuestRepository
 class GuestInput:
 
     def __init__(self):
-        self.guest = Guest(None, None, None, None, None, None, None, None, None,)
+        self.guest = Guest(None, None, None, None, None, None, None, None, None)
         self.guest_repository = GuestRepository
 
     def register(self, guest, db):

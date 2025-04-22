@@ -4,6 +4,14 @@ class Room:
         self.room_type = room_type
         self.available = available
 
+    @property
+    def get_room_number(self):
+        return self.room_number
+
+    @property
+    def get_type(self):
+        return self.room_type
+
     def mark_available(self, available):
         self.available = available
 
