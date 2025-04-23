@@ -1,6 +1,6 @@
 
 
-from domain.models.Guest import Guest
+from domain.model.Guest import Guest
 
 
 

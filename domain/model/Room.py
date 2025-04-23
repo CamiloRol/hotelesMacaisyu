@@ -4,6 +4,14 @@ class Room:
         self.room_type = room_type
         self.available = available
 
+    @property
+    def get_room_number(self):
+        return self.room_number
+
+    @property
+    def get_type(self):
+        return self.room_type
+
     def mark_available(self, available):
         self.available = available
 
@@ -11,9 +19,3 @@ class Room:
         availability = "Disponible" if self.available else "No disponible"
         return f"Número {self.room_number}, Tipo: {self.room_type}, Estado: {availability}"
 
-
-room1 = Room(101, "Single", True)
-print(room1)  # Imprime: Número 101, Tipo: Single, Estado: Disponible
-
-room1.mark_available(False)
-print(room1)  # Imprime: Número 101, Tipo: Single, Estado: No disponible

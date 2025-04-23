@@ -1,13 +1,13 @@
 from application.GuestService import GuestService
-from domain.models.Guest import  Guest
+from domain.model.Guest import  Guest
 from repository.persistence.GuestRepository import GuestRepository
 
 class GuestInput:
 
 
     def __init__(self):
-        self.guest = Guest(None,None,None,None ,None,None, None,None,None )
-        self.guest_repository = GuestRepository()
+        self.guest = Guest(None, None, None, None, None, None, None, None, None)
+        self.guest_repository = GuestRepository
 
 
     def register(self, guest , db):
@@ -31,10 +31,6 @@ class GuestInput:
         self.guest.occupation = occupation
         self.guest_repository.create_guest_repository(self.guest, db)
 
-
-
-    def print_data(self):
-        self.guest_service.print_data_service()
 
 
 

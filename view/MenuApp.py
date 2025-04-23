@@ -1,7 +1,7 @@
-from domain.models.Guest import Guest
+from domain.model.Guest import Guest
 from application.GuestService import GuestService
-from application.GuestInput import GuestInput
-from repository.conexion.Conexion import Conexion
+from application.Guestinput import GuestInput
+from repository.connection.MysqlDataHandler import Conexion
 
 
 class Menu_App:
