@@ -1,18 +1,21 @@
+
 import mysql
 
 from mysql import connector
 
-class dbDataHandler:
-    def __init__(self, host, port, user, password, database):
+
+class Conexion:
+
+
+    def __init__(self, host, port, user, password , database):
         self.host = host
         self.port = port
         self.user = user
         self.password = password
         self.database = database
 
-    def db_conec(self):
+    def connection(self):
         try:
-
             self.connection = mysql.connector.connect(
                 host = self.host,
                 port = self.port,
@@ -20,31 +23,36 @@ class dbDataHandler:
                 password = self.password,
                 database = self.database
             )
-
-            print("Connection successfull")
-
+            print("Conexión Establecidad")
         except mysql.connector.Error as err:
-            print("no connection error: ", err)
+            print("error al conectar a la base de datos ", err)
 
-    def db_disconec(self):
+    def disconnect(self):
         if self.connection:
             self.connection.close()
-            print("Connection closed")
+            print("Conexión Cerrada")
 
-    def execute_query(self, query, params= None):
+    def execute_query(self, query , params= None):
         cursor = self.connection.cursor(buffered= True)
         try:
             cursor.execute(query, params)
             self.connection.commit()
-            print("Sign Up Completed")
-
+            print("Registro se guardo exitosamente")
             if query.lower().startswith('select'):
-                result  = cursor.fetchall()
+                result =cursor.fetchall()
                 return result
-
         except mysql.connector.Error as err:
-            print("No releted information: ", err)
+            print("Error al ejecutar la consulta", err)
             return None
-
         finally:
             cursor.close()
+
+
+
+
+
+
+
+
+
+
