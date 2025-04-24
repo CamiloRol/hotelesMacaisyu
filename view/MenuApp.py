@@ -4,6 +4,7 @@ from application.Guestinput import GuestInput
 from application.RoomInput import RoomInput
 from repository.connection.MysqlDataHandler import Conexion
 from domain.model.Room import Room
+from repository.persistence.RoomRepository import RoomRepository
 
 
 class MenuApp:
@@ -16,13 +17,14 @@ class MenuApp:
         self.guest_input= GuestInput()
         self.room_input = RoomInput()
         self.room = Room(None, None)
+        self.room_repository = RoomRepository
 
     def init_app(self):
         init = (int(input("Presione 1 para inicializar ")))
 
         while init != 0:
 
-            option = int(input(" 1. Login \n 2. Registro \n 3. Reservar \n 4. Salir \n"))
+            option = int(input(" 1. Login \n 2. Registro \n 3. Gestión de Reservar \n 4. Salir \n"))
 
             match option:
                 case 1:
@@ -55,7 +57,8 @@ class MenuApp:
         match option:
             case 1:
                 print("Listar habitaciones")
-                self.room_input.room_repository.find_all()
+                nau = self.room_input.room_repository.find_all(self.db)
+                print(nau)
             case 2:
                 print("Encontraste la habitación")
             case 3:
