@@ -4,7 +4,7 @@ from repository.persistence.RoomRepository import RoomRepository
 
 class RoomInput:
     def __init__(self):
-        self.room = Room(room_number=None, room_type=None)
+        self.room = Room
         self.room_repository = RoomRepository()
 
     def register(self, room, db):

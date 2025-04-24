@@ -1,6 +1,6 @@
 
 
-from domain.models.Guest import Guest
+from domain.model.Guest import Guest
 
 class GuestService:
 
@@ -19,7 +19,7 @@ class GuestService:
         guest.password = self.register_data[5]
         guest.status = self.register_data[6]
 
-    def print_data_service(self,):
+    def print_data_service(self=None):
 
         for data in self.register_data:
             print(data)
