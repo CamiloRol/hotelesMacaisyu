@@ -55,7 +55,7 @@ class MenuApp:
         match option:
             case 1:
                 print("Listar habitaciones")
-                self.room_input.print_data()
+                self.room_input.room_repository.find_all()
             case 2:
                 print("Encontraste la habitación")
             case 3:
