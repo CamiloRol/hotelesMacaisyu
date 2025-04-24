@@ -1,9 +1,12 @@
 from domain.model.Room import Room
 
+
 class RoomService:
+
+    register_room = []
+
     def __init__(self):
-        self.room = Room
-        self.register_room = []
+        self.room = Room(None, None)
 
     def create_room(self, room):
         room.room_number = self.register_room[0]
