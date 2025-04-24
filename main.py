@@ -1,5 +1,5 @@
-from view.MenuApp import Menu_App
+from view.MenuApp import MenuApp
 
-menu_app = Menu_App
+menu_app = MenuApp()
 
 menu_app.init_app()

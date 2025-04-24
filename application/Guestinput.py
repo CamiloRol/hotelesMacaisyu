@@ -6,13 +6,14 @@ class GuestInput:
 
 
     def __init__(self):
+        self.guest_service = GuestService()
         self.guest = Guest(None, None, None, None, None, None, None, None, None)
-        self.guest_repository = GuestRepository
+        self.guest_repository = GuestRepository()
 
 
-    def register(self, guest , db):
-        id = int(input("Ingrese su documento de identidad"))
-        self.guest.id = id
+    def register(self, guest, db):
+        id_user = int(input("Ingrese su documento de identidad"))
+        self.guest.id = id_user
         name = input("Ingrese su nombre")
         self.guest.name = name
         last_name = input("Ingrese su apellido")
@@ -30,6 +31,9 @@ class GuestInput:
         occupation = input("Ingrese su ocupacion")
         self.guest.occupation = occupation
         self.guest_repository.create_guest_repository(self.guest, db)
+
+    def print_data(self):
+        self.guest_service.print_data_service()
 
 
 
