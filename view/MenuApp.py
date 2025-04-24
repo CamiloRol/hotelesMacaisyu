@@ -1,6 +1,7 @@
 from domain.model.Guest import Guest
 from application.GuestService import GuestService
 from application.Guestinput import GuestInput
+from application.RoomInput import RoomInput
 from repository.connection.MysqlDataHandler import Conexion
 
 
@@ -42,3 +43,13 @@ class MenuApp:
             case 3:
                 init = 0
                 return init
+
+    def room_menu(self=None):
+        option = int(input("1. Listar habitaciones, 2.Buscar por número, 3. Registrar nueva habitación 4.Actualizar disponibilidad 5.Eliminar habitación"))
+
+        match option:
+            case 1:
+                print("Listar habitaciones")
+                self.roomInput.print_data()
+
+

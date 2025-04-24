@@ -1,5 +1,3 @@
-
-
 from domain.model.Guest import Guest
 
 class GuestService:
