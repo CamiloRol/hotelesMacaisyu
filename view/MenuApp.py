@@ -50,7 +50,7 @@ class MenuApp:
                 return init
 
     def room_menu(self):
-        option = int(input(" 1. Listar habitaciones \n 2.Buscar por número \n 3. Registrar nueva habitación \n 4.Actualizar disponibilidad \n 5.Eliminar habitación"))
+        option = int(input(" 1.Listar habitaciones \n 2.Buscar por número \n 3.Registrar nueva habitación \n 4.Actualizar disponibilidad \n 5.Eliminar habitación \n"))
 
         match option:
             case 1:
