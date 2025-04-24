@@ -7,13 +7,10 @@ class RoomRepository:
     def __init__(self):
         self.room = Room
 
-    def create_room_repository(self, room_number, room_type, db):
-        # Crear una instancia de Room
-        room = Room(room_number, room_type)
-
+    def create_room_repository(self, room, db):
         # Usar la instancia para acceder a las propiedades
-        query = "INSERT INTO Room (room_number, room_type) VALUES (%s, %s)"
-        values = (room.room_number, room.room_type)
+        query = "INSERT INTO Room (room_number, room_type, available) VALUES (%s, %s, %s)"
+        values = (room.room_number, room.room_type, room.available)
         db.execute_query(query, values)
 
     def find_all(self, db):
