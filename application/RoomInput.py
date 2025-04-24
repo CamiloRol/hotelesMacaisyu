@@ -10,7 +10,7 @@ class RoomInput:
         self.room_service = RoomService()
 
     def register(self, room, db):
-        room_number = int(input("Ingrese su número de habitación"))
+        room_number = input("Ingrese su número de habitación")
         self.room.room_number = room_number
         room_type = input("Ingrese tipo de habitación")
         self.room.room_type = room_type
