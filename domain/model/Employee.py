@@ -4,19 +4,17 @@ from domain.model.User import User
 
 class Employee(User):
 
-    def __init__(self, id, name , last_name,phone, email, password, status, rol):
-        super.__init__(id, name , last_name,phone, email, password, status)
-        self._rol = rol
-
+    def __init__(self, id_employee, name , last_name, email, password, status, salary):
+        super.__init__(id_employee, name , last_name, email, password, status)
+        self._salary = salary
 
     @property
-    def rol(self):
-        return self._rol
+    def salary(self):
+        return self._salary
 
-    @rol.setter
-    def rol(self, rol):
-        self._rol = rol
-
+    @salary.setter
+    def salary(self, salary):
+        self._salary = salary
 
     def __str__(self):
-        return f"rol{self._rol}"
+        return f"salary: {self._salary}"
