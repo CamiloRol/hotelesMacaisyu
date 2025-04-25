@@ -1,7 +1,7 @@
 class Reservation:
-    def __init__(self, id, id_guest, id_employee, room_number, id_service,
+    def __init__(self, id_reservation, id_guest, id_employee, room_number, id_service,
                  booking_date, start_date, end_date, estado='confirmada'):
-        self.id = id
+        self.id = id_reservation
         self.id_guest = id_guest
         self.id_employee = id_employee
         self.room_number = room_number

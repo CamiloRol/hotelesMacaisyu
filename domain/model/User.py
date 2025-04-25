@@ -3,8 +3,8 @@
 
 class User:
 
-    def __init__(self, id, name , last_name,phone, email, password, status):
-        self._id = id
+    def __init__(self, id_user, name , last_name,phone, email, password, status):
+        self._id = id_user
         self._name = name
         self._last_name = last_name
         self._phone = phone
@@ -18,8 +18,8 @@ class User:
         return self._id
 
     @id.setter
-    def id(self, id):
-        self._id = id
+    def id(self, id_user):
+        self._id = id_user
 
     @property
     def name(self):

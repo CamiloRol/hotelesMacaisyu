@@ -1,46 +1,31 @@
+from application.RoomService import RoomService
 from domain.model.Room import Room
 from repository.persistence.RoomRepository import RoomRepository
 
 
 class RoomInput:
     def __init__(self):
-        self.room = Room(room_number=None, room_type=None)
+        self.room = Room(None, None, None)
         self.room_repository = RoomRepository()
+        self.room_service = RoomService()
 
     def register(self, room, db):
+        room_number = input("Ingrese su número de habitación")
+        self.room.room_number = room_number
+        room_type = input("Ingrese tipo de habitación")
+        self.room.room_type = room_type
+        availability = input("Ingrese 1 si la habitación está disponible o 2 si está ocupada: ")
+        if availability == "1":
+            self.room.available = 'Disponible'  # Disponible
+        elif availability == "2":
+            self.room.available = 'No disponible'  # Ocupada
+        else:
+            print("Entrada inválida. Por defecto, la habitación se marcará como no disponible.")
+            self.room.available = 'Disponible'
 
-        room_number = int(input("Ingrese el número de habitación:"))
-        self.room.get_room_number(room_number)
-        room_type = input("Ingrese el tipo de habitación")
-        self.room.get_type
+        self.room_repository.create_room_repository(self.room, db)
 
-        self.room_repository.create_room_repository( None, room, db)
-
-
-
-
-    # Metodo para crear habitacion
-    def add_new_room(self):
-        try:
-            number = int(input("Ingrese el numero de habitación"))
-            self.room_service.register_room.append(number)
-            type = input("Ingrese el tipo de habitación")
-            self.room_service.register_room.append(type)
-        except ValueError:
-            print("El número para crear habitación debe ser entero")
-
-    # Metodo para reservar habitacion
-    def book_room(self):
-        try:
-            number = int(input("Ingrese el número de la habitación que desea reservar: "))
-            if self.room_service.book_room(number):
-                print(f"Habitacion {number} reservada exitosamete")
-            else:
-                print(f"No se encontró la habitacion {number}")
-        except ValueError:
-            print("Eror al ingresar número de habitación")
-
-    # Metodo para mostrar las habitaciones creadas
-    def show_all_rooms(self):
+    def print_data(self):
         self.room_service.print_all_rooms()
+
 
