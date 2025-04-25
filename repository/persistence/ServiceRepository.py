@@ -8,7 +8,8 @@ class ServiceRepository:
     def create_service_repository(self, service, db):
         query = "INSERT INTO Services (id_service, description, price) VALUES (%s, %s, %s)"
         values = (service.id_service, service.description, service.price)
-        db.execute_query(query, values)
+        reponse = db.execute_query(query, values)
+        return reponse
 
     def find_all_services(self, db):
             query = "SELECT * FROM Services"
