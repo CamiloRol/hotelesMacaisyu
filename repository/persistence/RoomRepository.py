@@ -15,7 +15,8 @@ class RoomRepository:
 
     def find_all(self, db):
         query = "SELECT * FROM Room"
-        return db.execute_query(query)
+        nau= db.execute_query(query)
+        return nau
 
     def find_by_room_numer(self, room_number, db):
         query = "SELECT * FROM Room WHERE room_number = %s"
@@ -24,7 +25,7 @@ class RoomRepository:
 
     def find_available(self, db):
         query = "SELECT * FROM Room WHERE available = %s"
-        values = ('AVAILABLE',)  # Usamos AVAILABLE porque ese es el valor de la columna
+        values = ('Disponible',)  # Usamos AVAILABLE porque ese es el valor de la columna
         return db.execute_query(query, values)
 
     def update_availability(self, room_number, availability, db):

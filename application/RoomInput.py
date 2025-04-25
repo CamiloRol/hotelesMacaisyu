@@ -16,12 +16,12 @@ class RoomInput:
         self.room.room_type = room_type
         availability = input("Ingrese 1 si la habitación está disponible o 2 si está ocupada: ")
         if availability == "1":
-            self.room.available = 'AVAILABLE'  # Disponible
+            self.room.available = 'Disponible'  # Disponible
         elif availability == "2":
-            self.room.available = 'NOT AVAILABLE'  # Ocupada
+            self.room.available = 'No disponible'  # Ocupada
         else:
             print("Entrada inválida. Por defecto, la habitación se marcará como no disponible.")
-            self.room.available = 'AVAILABLE'
+            self.room.available = 'Disponible'
 
         self.room_repository.create_room_repository(self.room, db)
 
