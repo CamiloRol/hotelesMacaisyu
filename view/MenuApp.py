@@ -1,6 +1,7 @@
 from domain.model.Guest import Guest
 from application.GuestService import GuestService
 from application.Guestinput import GuestInput
+from application.ReservationInput import ReservationInput
 from application.RoomInput import RoomInput
 from repository.connection.MysqlDataHandler import Conexion
 from domain.model.Room import Room
@@ -14,6 +15,7 @@ class MenuApp:
         self.db.connection()
         self.guest= Guest(None, None,None,None,None,None,None,None,None)
         self.guest_service= GuestService()
+        self.reservation_input=ReservationInput()
         self.guest_input= GuestInput()
         self.room_input = RoomInput()
         self.room = Room(None, None)
@@ -46,10 +48,11 @@ class MenuApp:
                 print("haz consultado exitosamente")
             case 2:
                 print("Proceso de reserva")
-                self.room_menu()
+                self.reservation_input.register(self.db)
             case 3:
-                init = 0
-                return init
+                print("Finalizar")
+                option = 0
+
 
     def room_menu(self):
         option = int(input(" 1.Listar habitaciones \n 2.Buscar por número \n 3.Registrar nueva habitación \n 4.Actualizar disponibilidad \n 5.Eliminar habitación \n"))
