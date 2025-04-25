@@ -3,6 +3,7 @@ from application.ServiceInput import ServiceInput
 from domain.model.Guest import Guest
 from application.GuestService import GuestService
 from application.Guestinput import GuestInput
+from application.ReservationInput import ReservationInput
 from application.RoomInput import RoomInput
 from repository.connection.MysqlDataHandler import Conexion
 from domain.model.Room import Room
@@ -82,6 +83,7 @@ class MenuApp:
         input("\nPresione Enter para continuar...")
 
     def reservation_menu(self):
+
         while True:
             self.display_header("GESTIÓN DE RESERVAS")
             print(" 1. Consultar reserva")
