@@ -19,7 +19,7 @@ class ReservationInput:
         self.reservation_repository = ReservationRepository()
         self.reservation_service = ReservationService()
 
-    def register(self, reservation, db):
+    def register(self, db):
         id_reservation = input("Ingrese ID de la reserva: ")
         self.reservation.id = id_reservation
 
