@@ -4,8 +4,8 @@ from domain.model.User import User
 
 class Employee(User):
 
-    def __init__(self, id_employee, name , last_name, email, password, status, salary):
-        super.__init__(id_employee, name , last_name, email, password, status)
+    def __init__(self, id_employee, name, last_name, phone, email, password, status, salary):
+        super().__init__(id_employee, name , last_name, phone, email, password, status)
         self._salary = salary
 
     @property

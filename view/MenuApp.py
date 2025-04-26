@@ -24,12 +24,13 @@ class MenuApp:
         self.room_input = RoomInput()
         self.room = Room(None, None)
         self.room_repository = RoomRepository
-        self.employee = Employee(None, None, None, None, None, None, None)
+        self.employee = Employee(None, None, None, None, None, None, None, None)
         self.employee_input = EmployeeInput()
         self.employee_repository = EmployeeRepository
         self.service = Services(None, None, None)
         self.service_input = ServiceInput()
-        self.service_repository = ServiceRepository
+        self.service_repository = ServiceRepository()
+        self.reservation_input = ReservationInput()
 
 
     def display_header(self, title):
@@ -142,7 +143,7 @@ class MenuApp:
                     input("\nPresione Enter para continuar...")
                 elif option == 4:
                     print("\nListando habitaciones disponibles...")
-                    reponse = self.room_input.room_repository.find_available(self.room, self.db)
+                    reponse = self.room_repository.find_available(None, self.db)
                     print(reponse)
                     input("\nPresione Enter para continuar...")
                 elif option == 5:
@@ -178,7 +179,8 @@ class MenuApp:
                 if option == 0:
                     break
                 elif option == 1:
-                    self.employee_input.print_data()
+                    anothernau = self.employee_repository.find_all_employees(None, self.db)
+                    print(anothernau)
                     input("\nPresione Enter para continuar...")
                 elif option == 2:
                     self.employee_input.register(self.employee, self.db)
@@ -187,16 +189,18 @@ class MenuApp:
                     id_employee = input("Ingrese el número del empleado a actualizar: ")
                     name = input("Nombre del empleado: ")
                     last_name = input("Apellido del empleado: ")
+                    phone = input("Ingresa el nuevo numero: ")
                     email = input("Email del empleado: ")
                     password = input("Contraseña nueva: ")
                     status = input("Estado: ")
                     salary = input("salario: ")
-                    result = self.employee_input.employee_repository.update(name,last_name, email, password, status, salary, id_employee, self.db)
+                    self.employee = Employee(id_employee, name, last_name, phone, email, password, status, salary)
+                    result = self.employee_repository.update(None, self.employee, self.db)
                     print(result)
                     input("\nPresione Enter para continuar...")
                 elif option == 4:
                     number = input("Ingrese el número de identificación del empleado que quiere eliminar")
-                    result = self.employee_input.employee_repository.delete(number, self.db)
+                    result = self.employee_repository.delete(None, number, self.db)
                     print(result)
                     input("\nPresione Enter para continuar...")
                 else:
@@ -221,25 +225,22 @@ class MenuApp:
                 if option == 0:
                     break
                 elif option == 1:
-                    self.service_input.services_service.print_all_services(self.db)
+                    nauanother  = self.service_repository.find_all_services(self.db)
+                    print(nauanother)
                     input("\nPresione Enter para continuar...")
                 elif option == 2:
-                    id_service = input("Ingrese el id del servicio que desea registrar: ")
-                    description = input("Ingrese la descripción del servicio: ")
-                    price = input("Ingrese el costo del servicio: ")
-                    response = self.service_input.service_repository.create_service_repository(id_service, description, price, self.db)
-                    print(response)
+                    self.service_input.register(self.service, self.db)
                     input("\nPresione Enter para continuar...")
                 elif option == 3:
                     id_service = input("Ingrese el id del servicio que desea actualizar: ")
                     description = input("Ingrese la descripción del servicio: ")
                     price = input("Ingrese el costo del servicio: ")
-                    update = self.service_input.service_repository.update_service(id_service, description, price, self.db)
+                    update = self.service_repository.update_service(id_service, description, price)
                     print(update)
                     input("\nPresione Enter para continuar...")
                 elif option == 4:
                     id_service = input("Ingrese el id del servicio que desea eliminar: ")
-                    delete = self.service_input.service_repository.delete_service(id_service, self.db)
+                    delete = self.service_repository.delete_service(id_service, self.db)
                     print(delete)
                     input("\nPresione Enter para continuar...")
                 else:
