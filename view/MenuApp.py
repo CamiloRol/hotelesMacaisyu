@@ -1,9 +1,12 @@
+import time
+
 from application.EmployeeInput import EmployeeInput
 from application.ServiceInput import ServiceInput
 from domain.model.Guest import Guest
-from application.GuestService import GuestService
 from application.Guestinput import GuestInput
+from domain.model.Reservation import Reservation
 from application.ReservationInput import ReservationInput
+from repository.persistence.ReservationRepository import ReservationRepository
 from application.RoomInput import RoomInput
 from repository.connection.MysqlDataHandler import Conexion
 from domain.model.Room import Room
@@ -19,7 +22,6 @@ class MenuApp:
         self.db = Conexion(host='localhost', port=3306, user='root', password="", database='hotel')
         self.db.connection()
         self.guest = Guest(None, None, None, None, None, None, None, None, None)
-        self.guest_service = GuestService()
         self.guest_input = GuestInput()
         self.room_input = RoomInput()
         self.room = Room(None, None)
@@ -30,7 +32,9 @@ class MenuApp:
         self.service = Services(None, None, None)
         self.service_input = ServiceInput()
         self.service_repository = ServiceRepository()
+        self.reservation = Reservation(None, None, None, None, None, None, None, None)
         self.reservation_input = ReservationInput()
+        self.reservation_repository = ReservationRepository()
 
 
     def display_header(self, title):
@@ -103,7 +107,22 @@ class MenuApp:
                     input("\nPresione Enter para continuar...")
                 elif option == 2:
                     print("\nIniciando proceso de reserva...")
-                    self.room_menu()
+                    print(" 1. Validar disponibilidad \n 2. Salir")
+                    option = int(input())
+                    if option == 1:
+                        print("\nListando habitaciones...")
+                        rooms = self.room_input.room_repository.find_all(self.db)
+                        print(rooms)
+                        print("Continua el proceso de reserva")
+                        numr = input("Ingrese el numero de la habitación a reservar")
+                        time.sleep(5)
+                        if self.room_repository.is_available(None, numr, self.db):
+                            self.display_header("Reservando la Habitación")
+                            self.reservation_input.register(self.db)
+                        else:
+                            print("La habitación no está disponible. Intenta con otra.")
+                    else:
+                        break
                 else:
                     print("\n⚠️ Opción no válida. Intente nuevamente.")
             except ValueError:

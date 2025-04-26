@@ -23,10 +23,17 @@ class RoomRepository:
         values = (room_number,)
         return db.execute_query(query, values)
 
+    def is_available(self, room_number, db):
+        query = "SELECT * FROM Room WHERE room_number = %s AND available = %s"
+        values = (room_number, 'Disponible')
+        result = db.execute_query(query, values)
+        return bool(result)
+
     def find_available(self, db):
         query = "SELECT * FROM Room WHERE available = %s"
         values = ('Disponible',)  # Usamos AVAILABLE porque ese es el valor de la columna
-        return db.execute_query(query, values)
+        result = db.execute_query(query, values)
+        return bool(result)
 
     def update_availability(self, room_number, availability, db):
         query = 'UPDATE Room SET available = %s WHERE room_number = %s'
