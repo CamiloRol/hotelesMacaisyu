@@ -10,4 +10,3 @@ class LoginInput:
 
     def loginProc(self, db):
         user= input("Ingrese usuario: ")
-        
