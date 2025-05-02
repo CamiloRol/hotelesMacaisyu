@@ -23,7 +23,7 @@ class ServiceRepository:
         return response
 
     def delete_service(self, id_service, db):
-        query = "DELETE FROM Services WHERE id_serive = %s"
+        query = "DELETE FROM Services WHERE id_service = %s"
         values = (id_service,)
         response = db.execute_query(query,values)
         return response

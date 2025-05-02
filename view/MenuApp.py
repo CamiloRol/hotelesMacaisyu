@@ -1,9 +1,12 @@
+import time
+
 from application.EmployeeInput import EmployeeInput
 from application.ServiceInput import ServiceInput
 from domain.model.Guest import Guest
-from application.GuestService import GuestService
 from application.Guestinput import GuestInput
+from domain.model.Reservation import Reservation
 from application.ReservationInput import ReservationInput
+from repository.persistence.ReservationRepository import ReservationRepository
 from application.RoomInput import RoomInput
 from repository.connection.MysqlDataHandler import Conexion
 from domain.model.Room import Room
@@ -19,17 +22,19 @@ class MenuApp:
         self.db = Conexion(host='localhost', port=3306, user='root', password="", database='hotel')
         self.db.connection()
         self.guest = Guest(None, None, None, None, None, None, None, None, None)
-        self.guest_service = GuestService()
         self.guest_input = GuestInput()
         self.room_input = RoomInput()
         self.room = Room(None, None)
         self.room_repository = RoomRepository
-        self.employee = Employee(None, None, None, None, None, None, None)
+        self.employee = Employee(None, None, None, None, None, None, None, None)
         self.employee_input = EmployeeInput()
         self.employee_repository = EmployeeRepository
         self.service = Services(None, None, None)
         self.service_input = ServiceInput()
-        self.service_repository = ServiceRepository
+        self.service_repository = ServiceRepository()
+        self.reservation = Reservation(None, None, None, None, None, None, None, None)
+        self.reservation_input = ReservationInput()
+        self.reservation_repository = ReservationRepository()
 
 
     def display_header(self, title):
@@ -99,10 +104,26 @@ class MenuApp:
                     break
                 elif option == 1:
                     print("\n✅ Has consultado exitosamente")
-                    input("\nPresione Enter para continuar...")
+                    naureser = self.reservation_repository.get_all_reservations(self.db)
+                    print(naureser)
                 elif option == 2:
                     print("\nIniciando proceso de reserva...")
-                    self.room_menu()
+                    print(" 1. Validar disponibilidad \n 2. Salir")
+                    option = int(input())
+                    if option == 1:
+                        print("\nListando habitaciones...")
+                        rooms = self.room_input.room_repository.find_all(self.db)
+                        print(rooms)
+                        print("Continua el proceso de reserva")
+                        numr = input("Ingrese el numero de la habitación a reservar")
+                        time.sleep(5)
+                        if self.room_repository.is_available(None, numr, self.db):
+                            self.display_header("Reservando la Habitación")
+                            self.reservation_input.register(self.db)
+                        else:
+                            print("La habitación no está disponible. Intenta con otra.")
+                    else:
+                        break
                 else:
                     print("\n⚠️ Opción no válida. Intente nuevamente.")
             except ValueError:
@@ -142,7 +163,7 @@ class MenuApp:
                     input("\nPresione Enter para continuar...")
                 elif option == 4:
                     print("\nListando habitaciones disponibles...")
-                    reponse = self.room_input.room_repository.find_available(self.room, self.db)
+                    reponse = self.room_repository.find_available(None, self.db)
                     print(reponse)
                     input("\nPresione Enter para continuar...")
                 elif option == 5:
@@ -178,7 +199,8 @@ class MenuApp:
                 if option == 0:
                     break
                 elif option == 1:
-                    self.employee_input.print_data()
+                    anothernau = self.employee_repository.find_all_employees(None, self.db)
+                    print(anothernau)
                     input("\nPresione Enter para continuar...")
                 elif option == 2:
                     self.employee_input.register(self.employee, self.db)
@@ -187,16 +209,18 @@ class MenuApp:
                     id_employee = input("Ingrese el número del empleado a actualizar: ")
                     name = input("Nombre del empleado: ")
                     last_name = input("Apellido del empleado: ")
+                    phone = input("Ingresa el nuevo numero: ")
                     email = input("Email del empleado: ")
                     password = input("Contraseña nueva: ")
                     status = input("Estado: ")
                     salary = input("salario: ")
-                    result = self.employee_input.employee_repository.update(name,last_name, email, password, status, salary, id_employee, self.db)
+                    self.employee = Employee(id_employee, name, last_name, phone, email, password, status, salary)
+                    result = self.employee_repository.update(None, self.employee, self.db)
                     print(result)
                     input("\nPresione Enter para continuar...")
                 elif option == 4:
                     number = input("Ingrese el número de identificación del empleado que quiere eliminar")
-                    result = self.employee_input.employee_repository.delete(number, self.db)
+                    result = self.employee_repository.delete(None, number, self.db)
                     print(result)
                     input("\nPresione Enter para continuar...")
                 else:
@@ -221,25 +245,23 @@ class MenuApp:
                 if option == 0:
                     break
                 elif option == 1:
-                    self.service_input.services_service.print_all_services(self.db)
+                    nauanother  = self.service_repository.find_all_services(self.db)
+                    print(nauanother)
                     input("\nPresione Enter para continuar...")
                 elif option == 2:
-                    id_service = input("Ingrese el id del servicio que desea registrar: ")
-                    description = input("Ingrese la descripción del servicio: ")
-                    price = input("Ingrese el costo del servicio: ")
-                    response = self.service_input.service_repository.create_service_repository(id_service, description, price, self.db)
-                    print(response)
+                    self.service_input.register(self.service, self.db)
                     input("\nPresione Enter para continuar...")
                 elif option == 3:
                     id_service = input("Ingrese el id del servicio que desea actualizar: ")
                     description = input("Ingrese la descripción del servicio: ")
                     price = input("Ingrese el costo del servicio: ")
-                    update = self.service_input.service_repository.update_service(id_service, description, price, self.db)
+                    self.service = Services(id_service, description, price)
+                    update = self.service_repository.update_service(self.service, self.db)
                     print(update)
                     input("\nPresione Enter para continuar...")
                 elif option == 4:
                     id_service = input("Ingrese el id del servicio que desea eliminar: ")
-                    delete = self.service_input.service_repository.delete_service(id_service, self.db)
+                    delete = self.service_repository.delete_service(id_service, self.db)
                     print(delete)
                     input("\nPresione Enter para continuar...")
                 else:
@@ -247,65 +269,5 @@ class MenuApp:
             except ValueError:
                 print("\n⚠️ Por favor, ingrese un número válido.")
 
-
-
-
-#
-# class MenuApp:
-#
-#     def __init__(self):
-#         self.db = Conexion(host='localhost', port=3306, user='root', password="", database='hotel')
-#         self.db.connection()
-#         self.guest= Guest(None, None,None,None,None,None,None,None,None)
-#         self.guest_service= GuestService()
-#         self.guest_input= GuestInput()
-#         self.room_input = RoomInput()
-#         self.room = Room(None, None)
-#         self.room_repository = RoomRepository
-#
-#     def init_app(self):
-#         init = (int(input("Presione 1 para inicializar ")))
-#
-#         while init != 0:
-#
-#             option = int(input(" 1. Login \n 2. Registro \n 3. Gestión de Reservar \n 4. Salir \n"))
-#
-#             match option:
-#                 case 1:
-#                     print("login")
-#                 case 2:
-#                     print("Registro")
-#                     self.guest_input.register(self.guest, self.db)
-#                 case 3:
-#                     self.reservation_menu()
-#                 case 4:
-#                     init = 0
-#
-#
-#     def reservation_menu(self):
-#         option = int(input(" 1. Consultar reserva \n 2. Reservar \n 3. Salir \n"))
-#
-#         match option:
-#             case 1:
-#                 print("haz consultado exitosamente")
-#             case 2:
-#                 print("Proceso de reserva")
-#                 self.room_menu()
-#             case 3:
-#                 init = 0
-#                 return init
-#
-#     def room_menu(self):
-#         option = int(input(" 1.Listar habitaciones \n 2.Buscar por número \n 3.Registrar nueva habitación \n 4.Actualizar disponibilidad \n 5.Eliminar habitación \n"))
-#
-#         match option:
-#             case 1:
-#                 print("Listar habitaciones")
-#                 nau = self.room_input.room_repository.find_all(self.db)
-#                 print(nau)
-#             case 2:
-#                 print("Encontraste la habitación")
-#             case 3:
-#                 self.room_input.register(self.room, self.db)
 
 

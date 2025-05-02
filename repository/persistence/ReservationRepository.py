@@ -7,7 +7,7 @@ class ReservationRepository:
 
     def create_reservation_repository(self, reservation, db):
         query = """
-        INSERT INTO reservation (id_reservation, id_guest, id_employee, room_number, id_service, booking_date, start_date, end_date, estado)
+        INSERT INTO reservation (id, id_guest, id_employee, room_number, id_service, booking_date, start_date, end_date, estado)
         VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
         """
         values = (
