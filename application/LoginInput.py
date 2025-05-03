@@ -9,4 +9,4 @@ class LoginInput:
         self.guest_repository= GuestRepository()
 
     def loginProc(self, db):
-        user= input("Ingrese usuario: ")
+        user= input("Ingrese usuario: Hola usuario")
